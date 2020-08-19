@@ -1,0 +1,36 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [
+		{
+			"name": "client",
+			"image": "egorovma/multi-client",
+			"hostname": "client",
+			"essential": false
+		},
+		{
+			"name": "server",
+			"image": "egorovma/multi-server",
+			"hostname": "api",
+			"essential": false
+		},
+		{
+			"name": "worker",
+			"image": "egorovma/multi-worker",
+			"hostname": "worker",
+			"essential": false
+		},
+		{
+			"name": "nginx",
+			"image": "egorovma/multi-nginx",
+			"hostname": "nginx",
+			"essential": true,
+			"portMappings": [
+				{
+					"hostPort": 80,
+					"containerPort": 80
+				}
+			],
+			"links": ["client", "server"]
+		}
+	]
+}
